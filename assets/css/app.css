@@ -1,0 +1,18 @@
+/* See the Tailwind configuration guide for advanced usage
+   https://tailwindcss.com/docs/configuration */
+
+@import "tailwindcss" source(none);
+@import "phoenix-colocated/time_display/colocated.css";
+@source "../css";
+@source "../js";
+@source "../../lib/time_display_web";
+/* Required for Tailwind to automatically pick up changes in colocated CSS files in dev */
+@source "../../_build/dev/phoenix-colocated/time_display/*/";
+
+
+@theme {
+  --font-spline-mono: "Spline Sans Mono", monospace;
+  --font-space-grotesk: "Space Grotesk", sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", monospace;
+  --font-nova-mono: "Nova Mono", monospace;
+}

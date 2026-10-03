@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+
+    <!-- F O N T S -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nova+Mono&family=Space+Grotesk:wght@300..700&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+    <.live_title default="TimeDisplay" suffix=" · Phoenix Framework" phx-no-format>{assigns[:page_title]}</.live_title>
+    <title>Time Display</title>
+
+    <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-[linear-gradient(125deg,#97A0E1_20%,#90B5D5,#DA9DA0,#EFCB7C_90%)] text-black justify-between px-3 py-2.5">
+    {@inner_content}
+
+    <footer class="flex justify-between font-spline-mono font-[550] text-[0.9rem] tracking-wide items-baseline cursor-default select-none">
+      <!-- left -->
+      <div class="flex space-x-1">
+        <a href="?clock=analog" class="border-[1.5px] rounded-[3px] pt-[0.5px] pb-px px-2.5 bg-linear-to-br from-[#0061ff]/20 to-[#07f49e]/50 select-none cursor-pointer
+          hover:from-black hover:to-black hover:text-[#07f49e] hover:border-black hover:font-semibold 
+          transition-colors duration-200
+          ">analog</a>
+        <a href="?clock=digital" class="border-[1.5px] rounded-[3px] pt-[0.5px] pb-px px-2.5 bg-linear-to-br from-[#ff5858]/60 to-[#696eff]/50 select-none cursor-pointer
+          hover:from-black hover:to-black hover:text-[#ff5858] hover:border-black hover:font-semibold 
+          transition-colors duration-200
+          ">digital</a>
+      </div>
+
+      <!-- right -->
+      <div class="font-spline-mono pb-px px-3 font-medium tracking-wider">
+        <u class="decoration-wavy underline-offset-[2.5px] cursor-pointer">completed: <time datetime="" class="select-all">02/10/2026</time></u>
+      </div>
+    </footer>
+  </body>
+</html>
