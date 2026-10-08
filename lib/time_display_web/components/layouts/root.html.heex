@@ -17,25 +17,26 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>
   </head>
-  <body class="min-h-screen flex flex-col bg-[linear-gradient(125deg,#97A0E1_20%,#90B5D5,#DA9DA0,#EFCB7C_90%)] text-black justify-between px-3 py-2.5">
+  <body class="min-h-screen flex flex-col bg-linear-to-br from-[#97A0E1] to-[#90B5D5]/80 text-black justify-between px-3 py-2.5">
     {@inner_content}
 
     <footer class="flex justify-between font-spline-mono font-[550] text-[0.9rem] tracking-wide items-baseline cursor-default select-none">
       <!-- left -->
       <div class="flex space-x-1">
-        <a href="?clock=analog" class="border-[1.5px] rounded-[3px] pt-[0.5px] pb-px px-2.5 bg-linear-to-br from-[#0061ff]/20 to-[#07f49e]/50 select-none cursor-pointer
-          hover:from-black hover:to-black hover:text-[#07f49e] hover:border-black hover:font-semibold 
+        <a id="analog-btn" href="?clock=analog" class="hidden border-[1.5px] rounded-xs pt-[0.5px] pb-px px-2 bg-linear-to-br select-none cursor-pointer border-black/70 bg-white/15
+          hover:border-black hover:from-[#0061ff]/20 hover:to-[#07f49e]/50 hover:font-semibold 
           transition-colors duration-200
           ">analog</a>
-        <a href="?clock=digital" class="border-[1.5px] rounded-[3px] pt-[0.5px] pb-px px-2.5 bg-linear-to-br from-[#ff5858]/60 to-[#696eff]/50 select-none cursor-pointer
-          hover:from-black hover:to-black hover:text-[#ff5858] hover:border-black hover:font-semibold 
+
+        <a id="digital-btn" href="?clock=digital" class="hidden border-[1.5px] rounded-xs pt-[0.5px] pb-px px-2 bg-linear-to-br select-none cursor-pointer border-black/70 bg-white/15
+          hover:border-black hover:from-[#0061ff]/20 hover:to-[#07f49e]/50 hover:font-semibold 
           transition-colors duration-200
           ">digital</a>
       </div>
 
       <!-- right -->
-      <div class="font-spline-mono pb-px px-3 font-medium tracking-wider">
-        <u class="decoration-wavy underline-offset-[2.5px] cursor-pointer">completed: <time datetime="" class="select-all">02/10/2026</time></u>
+      <div class="font-spline-mono pb-px px-3 font-semibold tracking-wider text-[0.85rem]">
+        <div class="underline decoration-wavy underline-offset-[2.5px] cursor-pointer text-black/90 decoration-indigo-950 hover:decoration-black/90 hover:text-indigo-950 transition-colors duration-200">completed:<time datetime="" class="select-all"> 02/10/2026</time></div>
       </div>
     </footer>
   </body>

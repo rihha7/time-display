@@ -82,13 +82,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 
-
-
-
-
-
-
-
-const timeZone = document.getElementById("timezone");
-const intlTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-timeZone.textContent = intlTimeZone.match(/\/(.*)/)[1].toLowerCase();
+import './switch-clock-format'
+import './format-analog-clock'
+import './format-digital-clock'

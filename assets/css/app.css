@@ -16,3 +16,52 @@
   --font-jetbrains-mono: "JetBrains Mono", monospace;
   --font-nova-mono: "Nova Mono", monospace;
 }
+
+
+div.numbers > span {
+  transition-duration: 0;
+  position: absolute; width: 1.6rem; margin-left: -2px;
+  -webkit-text-stroke: 0.5px black;
+  font-size: 1.5rem; line-height: 0.83rem;
+  /* border: 1px solid #000; */
+  
+  transform:
+    rotate(calc(var(--i1) * 30deg))
+    translateY(-114px) /* radius */
+    rotate(calc(var(--i1) * -30deg));
+}
+
+div.numbers:hover > span {
+  color: transparent;
+  -webkit-text-stroke: 0.5px white;
+}
+
+
+
+
+div.clock:hover > div.numbers > span { -webkit-text-stroke: 0.5px transparent; }
+div.clock:hover > div.graduations > span.dot { background-color: #FFFFFF70; }
+div.clock:hover > div.graduations > span.stick { background-color: #FFFFFFB0; }
+div.clock:hover > div.hands > span#second-hand { background-color: #FFFFFFF0; }
+div.clock:hover > div.hands > span#minute-hand { background-color: #FFFFFF70; }
+div.clock:hover > div.digital-display { opacity: 35%; }
+
+
+
+div.graduations > span.dot {
+  position: absolute;
+  width: 3px; height: 3px; background-color: #00000090; border-radius: 3px;
+
+  transform:
+    rotate(calc(var(--i2) * 6deg))
+    translateY(-135px);
+}
+
+div.graduations > span.stick {
+  position: absolute;
+  width: 3px; height: 7px; background-color: #000000F1; border-radius: 3px;
+
+  transform:
+    rotate(calc(var(--i2) * 6deg))
+    translateY(-134px);
+}

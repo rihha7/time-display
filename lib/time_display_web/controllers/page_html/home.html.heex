@@ -1,50 +1,54 @@
 <Layouts.flash_group flash={@flash} />
 <main class="m-auto">
 
-  <!-- analog component for time_components.ex -->
+  <!-- analog clock -->
+  <section id="analog-format" class="hidden font-nova-mono p-1 border-[1.5px] border-black/85 rounded-full">
+    <div class="clock relative w-75 h-75 rounded-full border-7 border-black/70 select-none cursor-pointer hover:bg-linear-to-br hover:from-[#84ffc9]/25 via-[#aab2ff] to-[#eca0ff]/45 bg-linear-to-br hover:from-black/40 hover:via-black/40 hover:to-black/40 hover:text-white transition-colors duration-100">
+      <.analog_clock_numbers />
+      <.analog_clock_graduations />
+      <.analog_clock_hands />
 
-
-  <!-- digital component for time_components.ex -->
-  <section class="border">
-    <div class="wrapper flex font-space-grotesk text-8xl tracking-[0.4rem] font-bold select-none">
-      <!-- time segments -->
-      <div class="relative [&:has(.hover-target:hover)>h1]:text-transparent [&:has(.hover-target:hover)>h1]:[-webkit-text-stroke:2.1px_black]">
-        <div class="absolute hover-target left-1/2 -translate-x-1/2 w-[7.65rem] top-1/2 -translate-y-1/2 -ml-0.75 h-[4.5rem] cursor-pointer bg-amber-200/50 rounded-xl"></div>
-        <h1>00</h1>
+      <div class="digital-display absolute font-space-grotesk font-bold tracking-wider opacity-60 inset-0 flex flex-col items-center justify-center mb-25 ml-1 rounded-full">
+        <span class="pt-px px-2 rounded-sm bg-black/20">00:00</span>
       </div>
-
-
-      <!-- separators -->
-      <h1 id="segment-separator" class="-mt-1.5">:</h1>
-
-
-      <div class="relative [&:has(.hover-target:hover)>h1]:text-transparent [&:has(.hover-target:hover)>h1]:[-webkit-text-stroke:2.1px_black]">
-        <div class="absolute hover-target left-1/2 -translate-x-1/2 w-[7.65rem] top-1/2 -translate-y-1/2 -ml-0.75 h-[4.5rem] cursor-pointer bg-amber-200/50 rounded-xl"></div>
-        <h1>00</h1>
-      </div>
-
-
-      <h1 id="segment-separator" class="-mt-1.5">:</h1>
-
-
-      <div class="relative [&:has(.hover-target:hover)>h1]:text-transparent [&:has(.hover-target:hover)>h1]:[-webkit-text-stroke:2.1px_black]">
-        <div class="absolute hover-target left-1/2 -translate-x-1/2 w-[7.65rem] top-1/2 -translate-y-1/2 -ml-0.75 h-[4.5rem] cursor-pointer bg-amber-200/50 rounded-xl"></div>
-        <h1>00</h1>
-      </div>
-    </div>
-
-
-
-
-
-
-    <div class="flex font-spline-mono justify-between px-7 border text-[0.9rem] tracking-wider font-medium items-center">
-      <!-- first 2 p need to share same width -->
-      <p id="timezone" class="border"></p>
-      <p id="time-period" class="border w-20 font-[350] text-[1.1rem] select-none">PM</p> <!-- AM/PM/noon/midnight -->
-      <p id="12h-time" class="border tracking-widest">01:00</p> <!-- 12h format -->
     </div>
   </section>
 
+
+  <!-- digital clock -->
+  <section id="digital-format" class="hidden border w-[calc(100%-5px)] relative">
+
+    <div class="wrapper flex font-space-grotesk text-8xl tracking-[0.4rem] font-bold select-none">
+      <% # time segments %>
+      <div class="relative [&:has(.hover-target:hover)>h1]:text-transparent [&:has(.hover-target:hover)>h1]:[-webkit-text-stroke:2.1px_black]">
+        <div class="absolute hover-target left-1/2 -translate-x-1/2 w-[7.65rem] top-1/2 -translate-y-1/2 -ml-0.75 h-[4.5rem] cursor-pointer bg-amber-200/50 rounded-xl"></div>
+        <h1>00</h1>
+      </div>
+
+      <% # separators %>
+      <h1 id="segment-separator" class="-mt-1.5">:</h1>
+
+      <div class="relative [&:has(.hover-target:hover)>h1]:text-transparent [&:has(.hover-target:hover)>h1]:[-webkit-text-stroke:2.1px_black]">
+        <div class="absolute hover-target left-1/2 -translate-x-1/2 w-[7.65rem] top-1/2 -translate-y-1/2 -ml-0.75 h-[4.5rem] cursor-pointer bg-amber-200/50 rounded-xl"></div>
+        <h1>00</h1>
+      </div>
+
+      <h1 id="segment-separator" class="-mt-1.5">:</h1>
+
+      <div class="relative [&:has(.hover-target:hover)>h1]:text-transparent [&:has(.hover-target:hover)>h1]:[-webkit-text-stroke:2.1px_black]">
+        <div class="absolute hover-target left-1/2 -translate-x-1/2 w-[7.65rem] top-1/2 -translate-y-1/2 -ml-0.75 h-[4.5rem] cursor-pointer bg-amber-200/50 rounded-xl"></div>
+        <h1>00</h1>
+      </div>
+
+      <p id="time-period" class="absolute bottom-0 font-semibold opacity-50 text-[1.1rem] tracking-wider select-none left-1/2 -translate-x-1/2 mb-1">PM</p> <% # AM/PM/noon/midnight %>
+    </div>
+
+
+    <!-- extra -->
+    <div class="flex font-spline-mono justify-between px-7 border text-[0.9rem] tracking-wider font-medium items-center">
+      <p id="timezone" class="border"></p>
+      <p id="12h-time" class="border tracking-widest">01:00</p> <% # 12h format %>
+    </div>
+  </section>
 
 </main>

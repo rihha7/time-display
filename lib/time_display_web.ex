@@ -87,6 +87,13 @@ defmodule TimeDisplayWeb do
       # Core UI components
       import TimeDisplayWeb.CoreComponents
 
+
+
+      # Analog clock components
+      import TimeDisplayWeb.AnalogComponents
+
+
+
       # Common modules used in templates
       alias Phoenix.LiveView.JS
       alias TimeDisplayWeb.Layouts
