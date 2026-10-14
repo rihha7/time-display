@@ -19,8 +19,6 @@ defmodule TimeDisplayWeb.AnalogComponents do
     """
   end
 
-
-
   def analog_clock_graduations(assigns) do
     ~H"""
     <div class="graduations absolute inset-0 flex flex-col items-center justify-center rounded-full">
@@ -31,8 +29,6 @@ defmodule TimeDisplayWeb.AnalogComponents do
     """
   end
 
-
-
   def analog_clock_hands(assigns) do
     ~H"""
     <div class="hands absolute inset-0 rounded-full">
@@ -41,12 +37,19 @@ defmodule TimeDisplayWeb.AnalogComponents do
         <span id={hand} class={[
           "absolute w-0.75 rounded-full left-1/2 mb-[0.5px] bottom-1/2 origin-bottom",
           hand == "hour-hand" && "h-23 bg-black -ml-[0.5px] z-1",
-          hand == "minute-hand" && "h-20 bg-black/65 z-2 rotate-90",
-          hand == "second-hand" && "w-[2px] h-21 bg-[#800000] z-3 rotate-[calc(15*6)]"
+          hand == "minute-hand" && "h-20 bg-black/55 z-2",
+          hand == "second-hand" && "w-[2px] h-24 bg-[#800000] z-3"
         ]}></span>
       <% end %>
     </div>
     """
   end
 
+  def analog_digital_display(assigns) do
+    ~H"""
+    <div class="absolute font-space-grotesk font-bold tracking-wider opacity-60 inset-0 flex flex-col items-center justify-center mb-25 ml-1 rounded-full">
+      <div id="digital-display" class="pt-px rounded-sm bg-black/30 w-17 text-center">00:00</div>
+    </div>
+    """
+  end
 end

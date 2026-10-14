@@ -91,6 +91,8 @@ defmodule TimeDisplayWeb do
 
       # Analog clock components
       import TimeDisplayWeb.AnalogComponents
+      # Footer components
+      import TimeDisplayWeb.FooterComponents
 
 
 

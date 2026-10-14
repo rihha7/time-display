@@ -65,3 +65,6 @@ div.graduations > span.stick {
     rotate(calc(var(--i2) * 6deg))
     translateY(-134px);
 }
+
+.ease-hover { transition: color 300ms ease, background-color 300ms ease, box-shadow 150ms ease; }
+

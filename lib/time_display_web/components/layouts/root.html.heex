@@ -17,27 +17,52 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>
   </head>
-  <body class="min-h-screen flex flex-col bg-linear-to-br from-[#97A0E1] to-[#90B5D5]/80 text-black justify-between px-3 py-2.5">
+  <body class="min-h-screen flex flex-col bg-[#F2E8D5] text-black justify-between px-3 py-2.5 bg-[radial-gradient(circle,#1e1a4d2A_3px,transparent_3px)] bg-size-[40px_40px]">
+    
+    <header class="flex font-space-grotesk justify-between text-[0.89rem] text-indigo-950 font-semibold items-baseline tracking-wider">
+      <section class="relative">
+        <button id="stopwatch-btn" class="mx-auto block select-none cursor-pointer border-[1.5px] bg-white/15 px-1.5 rounded-[3px]">stopwatch</button>
+        <div class="absolute border w-full">
+          <div class="font-bold text-center tracking-widest rounded-full pt-[0.5px] mt-2 bg-indigo-950/15 w-21 mx-auto">00:00:00</div>
+          <div id="stopwatch-controls" class="select-none flex text-xs mt-2 justify-center gap-x-2 mr-1">
+            <button id="unpause" class="cursor-pointer bg-indigo-950/20 rounded-full pl-[4.5px] pr-[1.25px] hover:bg-indigo-950/70 hover:text-white ease-hover">▶︎</button>
+            <button id="pause" class="cursor-pointer bg-indigo-950/20 rounded-full pl-[2.75px] pr-[2px] pt-[0.75px] pb-[0.25px] hover:bg-indigo-950/70 hover:text-white ease-hover">❚❚</button>
+            <button id="stop" class="cursor-pointer bg-indigo-950/20 rounded-full pl-[2.75px] pr-[2px] pt-[0.5px] pb-[0.5px] hover:bg-indigo-950/70 hover:text-white ease-hover">◼</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="relative">
+        <button id="timer-btn" class="mx-auto block select-none cursor-pointer border-[1.5px] bg-white/15 px-1.5 rounded-[3px]">timer</button>
+
+        <div id="timer-input" class="border-[1.5px] bg-white/15 px-1.5 rounded-[3px] flex items-center pt-0.5 pb-0.75">
+          <input id="input-minute" type="text" class="bg-white/60 h-5 rounded-[3px] pt-px w-7 text-center placeholder:text-[0.75rem] placeholder:-pt-2 placeholder:font-extrabold" value="00" maxlength="2" placeholder="MM">
+          <p class="select-none pl-0.5 pt-px pr-1 font-extrabold">m</p>
+          <input id="input-second" type="text" class="bg-white/60 h-5 rounded-[3px] pt-px w-7 text-center placeholder:text-[0.8rem] placeholder:-pt-2 placeholder:font-extrabold" value="00" maxlength="2" placeholder="SS">
+          <p class="select-none pl-0.75 pr-4 pt-[0.5px] font-extrabold text-[0.94rem]">s</p>
+          <button class="select-none cursor-pointer bg-indigo-950/15 hover:bg-indigo-950/70 hover:text-white ease-hover pl-[4.5px] pr-[4px] rounded-full">✔</button>
+        </div>
+
+        <div class="absolute border w-full">
+          <div class="font-bold text-center tracking-widest rounded-full pt-[0.5px] mt-2 w-15 mx-auto bg-indigo-950/15">00:00</div>
+          <div id="timer-controls" class="flex text-xs mt-2 justify-center gap-x-2 mr-1 select-none">
+            <button id="unpause" class="cursor-pointer bg-indigo-950/20 rounded-full pl-[4.5px] pr-[1.25px] hover:bg-indigo-950/70 hover:text-white ease-hover">▶︎</button>
+            <button id="pause" class="cursor-pointer bg-indigo-950/20 rounded-full pl-[2.75px] pr-[2px] pt-[0.75px] pb-[0.25px] hover:bg-indigo-950/70 hover:text-white ease-hover">❚❚</button>
+            <button id="stop" class="cursor-pointer bg-indigo-950/20 rounded-full pl-[2.75px] pr-[2px] pt-[0.5px] pb-[0.5px] hover:bg-indigo-950/70 hover:text-white ease-hover">◼</button>
+          </div>
+          <div id="timer-complete" class="text-[0.7rem] border rounded-xs w-fit mx-auto px-1 pt-[0.5px] mt-1.5"><span class="select-none">DONE: </span>15:59</div>
+
+        </div>
+      </section>
+    </header>
+
+
     {@inner_content}
 
+
     <footer class="flex justify-between font-spline-mono font-[550] text-[0.9rem] tracking-wide items-baseline cursor-default select-none">
-      <!-- left -->
-      <div class="flex space-x-1">
-        <a id="analog-btn" href="?clock=analog" class="hidden border-[1.5px] rounded-xs pt-[0.5px] pb-px px-2 bg-linear-to-br select-none cursor-pointer border-black/70 bg-white/15
-          hover:border-black hover:from-[#0061ff]/20 hover:to-[#07f49e]/50 hover:font-semibold 
-          transition-colors duration-200
-          ">analog</a>
-
-        <a id="digital-btn" href="?clock=digital" class="hidden border-[1.5px] rounded-xs pt-[0.5px] pb-px px-2 bg-linear-to-br select-none cursor-pointer border-black/70 bg-white/15
-          hover:border-black hover:from-[#0061ff]/20 hover:to-[#07f49e]/50 hover:font-semibold 
-          transition-colors duration-200
-          ">digital</a>
-      </div>
-
-      <!-- right -->
-      <div class="font-spline-mono pb-px px-3 font-semibold tracking-wider text-[0.85rem]">
-        <div class="underline decoration-wavy underline-offset-[2.5px] cursor-pointer text-black/90 decoration-indigo-950 hover:decoration-black/90 hover:text-indigo-950 transition-colors duration-200">completed:<time datetime="" class="select-all"> 02/10/2026</time></div>
-      </div>
+      <.switch_clock_btns /> <!-- left -->
+      <.date_of_completion /> <!-- right -->
     </footer>
   </body>
 </html>
