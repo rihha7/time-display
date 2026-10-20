@@ -1,6 +1,6 @@
 (() => {
   window.addEventListener("DOMContentLoaded", () => {
-    // Set default param to analog
+    // Set default clock format to analog
     let clockFormat = localStorage.getItem("clock-format");
     clockFormat = clockFormat ?? "analog";
 

@@ -31,11 +31,6 @@ div.numbers > span {
     rotate(calc(var(--i1) * -30deg));
 }
 
-div.numbers:hover > span {
-  color: transparent;
-  -webkit-text-stroke: 0.5px white;
-}
-
 
 
 

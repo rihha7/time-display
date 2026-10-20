@@ -3,12 +3,14 @@
     const params = new URLSearchParams(window.location.search);
 
     if (params.get("clock") === "digital") {
+
+      // timezone city
       const timeZone = document.getElementById("timezone");
       const intlTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       timeZone.textContent = intlTimeZone.match(/\/(.*)/)[1].toLowerCase();
 
-      // ---------------------------------------------
 
+      // switch between hour formats
       const btn24h = document.getElementById("24h-btn");
       const btn12h = document.getElementById("12h-btn");
 
@@ -16,7 +18,7 @@
       hourFormat = hourFormat ?? "24h";
       localStorage.setItem("hour-format", hourFormat);
 
-      const disableSelection = btn => btn.classList.add("bg-black", "border-black", "text-white", "cursor-not-allowed");
+      const disableSelection = btn => btn.classList.add("bg-black", "border-black", "text-white", "cursor-not-allowed", "font-medium");
 
       const enableSelection = (btn, newHrFormat) => {
         btn.classList.add("cursor-pointer", "bg-[#F2E8D5]", "hover:bg-white", "hover:shadow-[2px_2px_black]");
@@ -35,18 +37,17 @@
         enableSelection(btn24h, "24h");
       }
 
-      // ---------------------------------------------
 
+      // hover target widths for each digital clock segment
       const hourSegment = document.getElementById("hour-segment");
       const minuteSegment = document.getElementById("minute-segment");
       const secondSegment = document.getElementById("second-segment");
 
-      /* default hover target width */
-      
       const setDefaultWidths = () => {
+        /* default hover target width */
         [hourSegment, minuteSegment, secondSegment].forEach(segment => {
           const hoverTarget = segment.querySelector("div.hover-target");
-          const timeSegment = segment.querySelector("h1").textContent; // string
+          const timeSegment = segment.querySelector("h1").textContent;
           let targetWidth = 7.65;
           let marginLeft = 3;
 
@@ -69,6 +70,8 @@
 
       setDefaultWidths();
 
+
+      // digital clock logic + update hover target widths
       const hours = hourSegment.querySelector("h1");
       const minutes = minuteSegment.querySelector("h1");
       const seconds = secondSegment.querySelector("h1");
@@ -93,7 +96,6 @@
 
       updateClock();
       setInterval(updateClock, 1000);
-
     }
   });
 })();

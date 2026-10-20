@@ -83,5 +83,6 @@ if (process.env.NODE_ENV === "development") {
 
 
 import './switch-clock-format'
-import './format-analog-clock'
-import './format-digital-clock'
+import './analog-clock'
+import './digital-clock'
+import './timers'

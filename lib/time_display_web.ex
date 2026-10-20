@@ -88,12 +88,14 @@ defmodule TimeDisplayWeb do
       import TimeDisplayWeb.CoreComponents
 
 
-
       # Analog clock components
       import TimeDisplayWeb.AnalogComponents
       # Footer components
       import TimeDisplayWeb.FooterComponents
-
+      # Timer components
+      import TimeDisplayWeb.TimerComponents
+      # Header components
+      import TimeDisplayWeb.HeaderComponents
 
 
       # Common modules used in templates

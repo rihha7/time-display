@@ -3,7 +3,7 @@
 
   <!-- analog clock -->
   <section id="analog-format" class="hidden font-nova-mono p-1 border-[1.5px] border-black/85 bg-[#F2E8D5] rounded-full">
-    <div class="clock relative w-75 h-75 rounded-full border-7 border-black/70 select-none cursor-pointer bg-[#F2E8D5] hover:text-white hover:bg-[#6a6a6a] transition-colors duration-100">
+    <div class="clock relative w-75 h-75 rounded-full border-7 border-black/70 select-none cursor-pointer bg-[#F2E8D5] hover:text-white hover:bg-[#6a6a6a] ease-hover">
       <.analog_clock_numbers />
       <.analog_clock_graduations />
       <.analog_clock_hands />
@@ -22,8 +22,8 @@
     </div>
 
 
-    <% # switch_hour_format_btns component %>
-    <div class="flex font-space-grotesk justify-between px-7 text-[0.89rem] font-semibold items-center tracking-wider">
+    <% # hour_format_btns component %>
+    <div class="flex font-space-grotesk justify-between px-7 text-[0.89rem] font-extrabold items-center tracking-wider">
       <button id="24h-btn" class="border-[1.5px] px-1.5 rounded-[3px] z-1 ease-hover">24h clock</button>
       <button id="12h-btn" class="border-[1.5px] px-1.5 pt-px rounded-[3px] z-1 ease-hover">12h clock</button>
     </div>
