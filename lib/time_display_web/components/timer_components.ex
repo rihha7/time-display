@@ -1,5 +1,6 @@
 defmodule TimeDisplayWeb.TimerComponents do
   use Phoenix.Component
+  import TimeDisplayWeb.IconComponents
 
   attr :stopwatch, :boolean, default: false
 
@@ -15,7 +16,7 @@ defmodule TimeDisplayWeb.TimerComponents do
 
   def timer_input(assigns) do
     ~H"""
-    <input id={"#{@type}-input"} type="text" class="bg-white h-5 border rounded-[3px] pt-px w-6.75 pl-[0.5px] text-center placeholder:font-extrabold" maxlength="2" placeholder="00" inputmode="numeric">
+    <input id={"#{@type}s"} type="text" class="bg-white h-5 border rounded-[3px] pt-px w-6.75 pl-[0.5px] text-center placeholder:font-extrabold" maxlength="2" placeholder="00" inputmode="numeric">
     <p class={["select-none pl-0.5",
         @type == "minute" and "pt-px pr-1.5 text-[0.94rem] font-extrabold",
         @type == "second" and "pt-[0.5px] text-[0.98rem] font-black",
@@ -29,8 +30,7 @@ defmodule TimeDisplayWeb.TimerComponents do
 
   def timer_display(assigns) do
     ~H"""
-    <div id={"#{@stopwatch and "stopwatch" || "timer"}-display"} class={["font-bold text-center tracking-widest rounded-full pt-[0.5px] mx-auto bg-indigo-950/15",
-        @stopwatch and "mx-1" || "mt-1 w-15" ]}><%= if @stopwatch, do: "00:00:00", else: "00:00" %></div>
+    <div id="display" class={["hidden font-bold text-center tracking-widest rounded-full pt-[0.5px bg-indigo-950/15"]}><%= if @stopwatch, do: "00:00:00", else: "00:00" %></div>
     """
   end
 
@@ -41,14 +41,16 @@ defmodule TimeDisplayWeb.TimerComponents do
 
   def timer_controls(assigns) do
     ~H"""
-    <div class="w-full">
-      <div id="timer-controls" class="w-fit mx-auto text-xs mt-2 justify-center gap-x-2 select-none">
-        <button id="pause" class="cursor-pointer bg-indigo-950/20 rounded-full pl-[2.95px] pr-[1.8px] pt-[0.75px] pb-[0.25px] hover:bg-indigo-950/70 hover:text-white ease-hover">❚❚</button>
-
-        <button id="resume" class="hidden cursor-pointer bg-indigo-950/20 rounded-full pl-[4.5px] pr-[1.25px] hover:bg-indigo-950/70 hover:text-white ease-hover">▶︎</button>
-
-        <button id="stop" class="cursor-pointer bg-indigo-950/20 rounded-full pl-[3.15px] pr-[1.8px] hover:bg-indigo-950/70 hover:text-white ease-hover">◼</button>
-      </div>
+    <div id="controls" class="hidden w-fit mx-auto select-none gap-x-1">
+      <%= for btn <- ~w(pause resume stop) do %>
+        <button id={btn} class={"block cursor-pointer bg-indigo-950/20 rounded-full hover:bg-indigo-950/70 hover:text-white ease-hover size-4 group #{btn == "resume" and "hidden"}"}>
+          <%= cond do %>
+            <% btn == "pause" -> %> <.pause_icon />
+            <% btn == "resume" -> %> <.resume_icon />
+            <% btn == "stop" -> %> <.stop_icon />
+          <% end %>
+        </button>
+      <% end %>
     </div>
     """
   end

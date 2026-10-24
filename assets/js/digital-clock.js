@@ -9,7 +9,7 @@
       const intlTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       timeZone.textContent = intlTimeZone.match(/\/(.*)/)[1].toLowerCase();
 
-
+      
       // switch between hour formats
       const btn24h = document.getElementById("24h-btn");
       const btn12h = document.getElementById("12h-btn");
@@ -72,25 +72,33 @@
 
 
       // digital clock logic + update hover target widths
-      const hours = hourSegment.querySelector("h1");
-      const minutes = minuteSegment.querySelector("h1");
-      const seconds = secondSegment.querySelector("h1");
+      // time period
+      const timePeriod = document.getElementById("time-period");
+
+      const hoursDisplay = hourSegment.querySelector("h1");
+      const minutesDisplay = minuteSegment.querySelector("h1");
+      const secondsDisplay = secondSegment.querySelector("h1");
 
       const updateClock = () => {
         const now = new Date();
 
-        let hour = now.getHours(); // 24h
-        if (hourFormat === "12h") hour = hour % 12 || 12;
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        let hours = now.getHours(); // 24h
 
-        hours.textContent =
-          String(hour).padStart(2, "0");
+        // set time period
+        if (hours == 0 && minutes == 0) timePeriod.textContent = "midnight";
+        else if (hours < 12) timePeriod.textContent = "AM";
+        else if (hours == 12 && minutes == 0) timePeriod.textContent = "noon";
+        else timePeriod.textContent = "PM";
 
-        minutes.textContent =
-          String(now.getMinutes()).padStart(2, "0");
 
-        seconds.textContent =
-          String(now.getSeconds()).padStart(2, "0");
-        
+        if (hourFormat === "12h") hours = hours % 12 || 12;
+
+        hoursDisplay.textContent = String(hours).padStart(2, "0");
+        minutesDisplay.textContent = String(minutes).padStart(2, "0");
+        secondsDisplay.textContent = String(seconds).padStart(2, "0");
+
         setDefaultWidths();
       }
 

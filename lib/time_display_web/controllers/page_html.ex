@@ -36,7 +36,7 @@ defmodule TimeDisplayWeb.PageHTML do
 
   def time_period(assigns) do
     ~H"""
-    <p id="time-period" class="absolute bottom-0 font-semibold opacity-75 text-[1.1rem] tracking-wider select-none left-1/2 -translate-x-1/2 mb-1">PM</p>
+    <p id="time-period" class="absolute bottom-0 font-semibold opacity-75 text-[1.1rem] tracking-wider select-none left-1/2 -translate-x-1/2 mb-1"></p>
     """
   end
 end

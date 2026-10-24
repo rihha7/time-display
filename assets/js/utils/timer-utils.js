@@ -1,88 +1,127 @@
 export const timerBtn = document.getElementById("timer-btn");
-
 const parent = timerBtn.parentElement;
 
 export const timerInput = parent.querySelector("div#timer-input");
+const timerControls = parent.querySelector("div#controls");
 export const submitBtn = parent.querySelector("button#submit-input");
 export const timerComplete = document.querySelector("div#timer-complete");
+const timerDisplay = parent.querySelector("div#display");
 
-const minutes = timerInput.querySelector("input#minute-input");
-const seconds = timerInput.querySelector("input#second-input");
+const minutes = timerInput.querySelector("input#minutes");
+const seconds = timerInput.querySelector("input#seconds");
+
+let timerMinutes = 0, timerSeconds = 0;
+
+const pause = parent.querySelector("button#pause");
+const resume = parent.querySelector("button#resume");
+const stop = parent.querySelector("button#stop");
 
 
-const disableInput = () => {
-  minutes.setAttribute("disabled", true);
-  seconds.setAttribute("disabled", true);
+const toggleInput = () => {
+  minutes.toggleAttribute("disabled");
+  seconds.toggleAttribute("disabled");
 
-  timerInput.classList.add("bg-green-400/30");
+  timerInput.classList.toggle("bg-green-400/30");
 
-  minutes.classList.add("pointer-events-none");
-  seconds.classList.add("pointer-events-none");
+  minutes.classList.toggle("pointer-events-none");
+  seconds.classList.toggle("pointer-events-none");
 
-  submitBtn.classList.add("hidden");
+  submitBtn.classList.toggle("hidden");
 };
-
-const enableInput = () => {
-  minutes.removeAttribute("disabled", true);
-  seconds.removeAttribute("disabled", true);
-
-  timerInput.classList.remove("bg-green-400/30");
-
-  minutes.classList.remove("pointer-events-none");
-  seconds.classList.remove("pointer-events-none");
-
-  submitBtn.classList.remove("hidden");
-
-  minutes.value = "";
-  seconds.value = "";
-};
-
 
 
 let timer = false;
+let intervalID;
+let mode = null;
 
-export const startTimer = () => { 
-  if (timer) return;
-  parent.querySelector("div#timer-tooltip").classList.remove("hidden");
-  disableInput();
 
-  /* timer logic */
-  let startMinute = +minutes.value;
-  let startSecond = +seconds.value;
+const endTimer = () => {
+  mode = null;
+  timerInput.classList.add("hidden");
+  timerBtn.classList.remove("hidden", "pointer-events-none");
 
-  parent.querySelector("div#timer-display").textContent = `${String(startMinute).padStart(2, "0")}:${String(startSecond).padStart(2, "0")}`;
+  pause.classList.remove("hidden");
+  resume.classList.add("hidden");
 
-  const interval = setInterval(() => {
-    startSecond--;
+  toggleInput();
+  timerControls.classList.add("hidden");
+  timerControls.classList.remove("flex");
+  timerDisplay.classList.add("hidden");
+  minutes.value = "";
+  seconds.value = "";
 
-    if (startSecond < 0) {
-      startMinute--;
-      startSecond = 59;
-    }
+  timer = false;
+};
 
-    parent.querySelector("div#timer-display").textContent = `${String(startMinute).padStart(2, "0")}:${String(startSecond).padStart(2, "0")}`;
 
-    if (startMinute === 0 && startSecond === 0) {
-      clearInterval(interval);
+const startInterval = () => {
+  timerControls.classList.add("flex");
+  timerControls.classList.remove("hidden");
+  timerDisplay.classList.remove("hidden");
 
-      const now = new Date();
-      const hourNow = String(now.getHours()).padStart(2, "0");
-      const minutesNow = String(now.getMinutes()).padStart(2, "0");
-
+  intervalID = setInterval(() => {
+    if (timerMinutes === 0 && timerSeconds === 0) {
+      clearInterval(intervalID);
       setTimeout(() => {
-        parent.querySelector("div#timer-controls").classList.add("hidden");
+        endTimer();
+        const now = new Date();
+        const hourNow = String(now.getHours()).padStart(2, "0");
+        const minutesNow = String(now.getMinutes()).padStart(2, "0");
 
         timerComplete.classList.remove("hidden");
         timerComplete.querySelector("span#time-completed").textContent = `${hourNow}:${minutesNow}`;
-        parent.querySelector("div#timer-display").classList.add("hidden");
-        timerInput.classList.add("hidden");
-        submitBtn.classList.remove("hidden");
-        timerBtn.classList.remove("hidden", "pointer-events-none");
-        enableInput();
-      }, 1100);
+      }, 800);
+    } else {
+      timerSeconds--;
+      if (timerSeconds < 0) timerMinutes--, timerSeconds = 59;
+
+      timerDisplay.textContent = `${String(timerMinutes).padStart(2, "0")}:${String(timerSeconds).padStart(2, "0")}`;
     }
   }, 1000);
+};
+
+
+export const handleTimer = () => { 
+  if (timer) return;
   timer = true;
+
+  toggleInput();
+
+  /* timer logic */
+  timerMinutes = +minutes.value;
+  timerSeconds = +seconds.value;
+
+  timerDisplay.textContent = `${String(timerMinutes).padStart(2, "0")}:${String(timerSeconds).padStart(2, "0")}`;
+
+  pause.addEventListener("click", () => {
+    if (mode === "pause") {
+      mode = "resume";
+      clearInterval(intervalID);
+      pause.classList.add("hidden");
+      resume.classList.remove("hidden");
+    }
+  });
+
+  resume.addEventListener("click", () => {
+    if (mode === "resume") {
+      timerSeconds--;
+      if (timerSeconds < 0) timerMinutes--, timerSeconds = 59;
+
+      timerDisplay.textContent = `${String(timerMinutes).padStart(2, "0")}:${String(timerSeconds).padStart(2, "0")}`;
+      startInterval();
+      pause.classList.remove("hidden");
+      resume.classList.add("hidden");
+      mode = "pause";
+    } 
+  });
+
+  stop.addEventListener("click", () => {
+    clearInterval(intervalID);
+    endTimer();
+  });
+
+  mode = "pause";
+  startInterval();
 };
 
 
@@ -90,22 +129,20 @@ export const validateInput = () => {
   [minutes, seconds].forEach(input => {
     input.addEventListener("input", e => {
       let input = e.currentTarget.value;
-      if (input.match(/[^0-9]/g)) {
-        e.currentTarget.value = input.replace(/[^0-9]/g, "");
-      }
 
-      if (input.length == 2 && (+input > 59 || +input < 0)) e.currentTarget.value = "";
+      e.currentTarget.value = input.replace(/[^0-9]/g, "");
+
+      if (input.length > 1 && (+input > 59 || +input < 0)) e.currentTarget.value = "";
+      if (input.length > 1 && input.startsWith("0")) e.currentTarget.value = input[1];
 
       if (input == 0 && e.currentTarget.id.startsWith("second") && minutes.value == 0) {
         minutes.value = "";
         e.currentTarget.value = "";
       }
-
-      if (input.startsWith("0") && input.length > 1) e.currentTarget.value = input[1];
     });
   });
 
   seconds.addEventListener("keydown", e => {
-    if (e.key === "Enter") startTimer();
+    if (e.key === "Enter") handleTimer();
   })
 };

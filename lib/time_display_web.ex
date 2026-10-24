@@ -96,6 +96,8 @@ defmodule TimeDisplayWeb do
       import TimeDisplayWeb.TimerComponents
       # Header components
       import TimeDisplayWeb.HeaderComponents
+      # Icon components
+      import TimeDisplayWeb.IconComponents
 
 
       # Common modules used in templates

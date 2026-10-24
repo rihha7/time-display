@@ -36,9 +36,9 @@ defmodule TimeDisplayWeb.AnalogComponents do
       <%= for hand <- ~w(hour-hand minute-hand second-hand) do %>
         <span id={hand} class={[
           "absolute w-0.75 rounded-full left-1/2 mb-[0.5px] bottom-1/2 origin-bottom",
-          hand == "hour-hand" && "h-24 bg-black -ml-[0.5px] z-1",
-          hand == "minute-hand" && "h-21 bg-[#7F7979] z-2",
-          hand == "second-hand" && "w-[2px] h-25 bg-[#800000] z-3"
+          hand == "hour-hand" && "h-20.5 bg-black/70 z-2",
+          hand == "minute-hand" && "h-25 bg-black -ml-[0.5px] z-1",
+          hand == "second-hand" && "w-[2px] h-25.5 bg-[#800000] z-3"
         ]}></span>
       <% end %>
     </div>
