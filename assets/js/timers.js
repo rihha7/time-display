@@ -1,95 +1,30 @@
-import {
-  timerBtn, timerInput, submitBtn, timerComplete,
-  handleTimer, validateInput
-} from './utils/timer-utils.js';
+import { pauseTimer, resumeTimer, stopTimer, startInterval} from './utils/timer-utils.js';
+import { timerBtn, handleInput } from './utils/timer-input-utils.js';
 
 (() => {
   window.addEventListener("DOMContentLoaded", () => {
-
     // timer
-    const handleInput = () => {
-      timerInput.classList.remove("hidden");
-      timerInput.classList.add("flex");
-      validateInput();
-      submitBtn.addEventListener("click", handleTimer);  
-    };
-
-    timerBtn.addEventListener("click", () => {
-      handleInput();
-      timerBtn.classList.add("hidden", "pointer-events-none");
-      timerComplete.classList.add("hidden");
-      timerComplete.querySelector("span#time-completed").textContent = "00:00";
-      timer = false;
-    });
-
+    timerBtn.addEventListener("click", handleInput);
 
     // stopwatch
     const stopwatchBtn = document.getElementById("stopwatch-btn");
-    const parent = stopwatchBtn.parentElement;
-    const display = parent.querySelector("div#display");
-    let intervalID;
-    let mode = null;
-    let hours = 0, minutes = 0, seconds = 0;
+    const sParent = stopwatchBtn.parentElement;
 
-    const startTimer = () => {
-      intervalID = setInterval(() => {
-        mode = "pause";
+    const sDisplay = sParent.querySelector("div#display"); 
+    const sControls = sParent.querySelector("div#controls");
 
-        seconds++;
-        if (seconds === 60) seconds = 0, minutes++;
-        if (minutes === 60) minutes = 0, hours++;
-
-        display.textContent = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
-        if (hours === 3) clearInterval(intervalID);
-      }, 1000);
-    };
+    const sPause = sParent.querySelector("button#pause");
+    const sResume = sParent.querySelector("button#resume");
+    const sStop = sParent.querySelector("button#stop");
 
     stopwatchBtn.addEventListener("click", () => {
-      const controls = parent.querySelector("div#controls");
-      const pause = parent.querySelector("button#pause");
-      const resume = parent.querySelector("button#resume");
-      const stop = parent.querySelector("button#stop");
-
       stopwatchBtn.classList.add("hidden");
-      display.classList.remove("hidden");
-      controls.classList.remove("hidden");
-      controls.classList.add("flex");
 
-      startTimer();
+      startInterval("stopwatch", sDisplay, sControls);
 
-      pause.addEventListener("click", () => {
-        if (mode === "pause") {
-          mode = "resume";
-          clearInterval(intervalID);
-          pause.classList.add("hidden");
-          resume.classList.remove("hidden");
-        }
-      });
-
-      resume.addEventListener("click", () => {
-        if (mode === "resume") {
-          mode = "pause";
-          startTimer();
-          resume.classList.add("hidden");
-          pause.classList.remove("hidden");
-        }
-      });
-
-      stop.addEventListener("click", () => {
-        mode = null;
-        resume.classList.add("hidden");
-        pause.classList.remove("hidden");
-
-        clearInterval(intervalID);
-        stopwatchBtn.classList.remove("hidden");
-        display.classList.add("hidden");
-        controls.classList.add("hidden");
-        controls.classList.remove("flex");
-
-        hours = 0, minutes = 0, seconds = 0;
-        display.textContent = "00:00:00";
-      });
+      pauseTimer("stopwatch", sPause, sResume);
+      resumeTimer("stopwatch", sResume, sPause, sDisplay, sControls);
+      stopTimer("stopwatch", sStop, sPause, sResume, stopwatchBtn, sDisplay, sControls);
     });
   });
 })();

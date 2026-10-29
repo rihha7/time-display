@@ -13,9 +13,7 @@
     const analogBtn = document.getElementById("analog-btn");
     const digitalBtn = document.getElementById("digital-btn");
 
-    const updateParam = e => {
-      localStorage.setItem("clock-format", e.target.textContent);
-    };
+    const updateParam = e => localStorage.setItem("clock-format", e.target.textContent);
 
     if (clockFormat === "analog") {
       const analogClock = document.getElementById("analog-format");

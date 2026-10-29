@@ -3,20 +3,19 @@
     const params = new URLSearchParams(window.location.search);
 
     if (params.get("clock") === "analog") {
-      const digitalClock = document.getElementById("digital-display");
+      const digitalDisplay = document.getElementById("digital-display");
       const hourHand = document.getElementById("hour-hand");
       const minuteHand = document.getElementById("minute-hand");
       const secondHand = document.getElementById("second-hand");
 
 
       const updateClock = () => {
-        // 90 deg = 15min, 90/15 = multiplier = 6
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, "0");
         const minutes = String(now.getMinutes()).padStart(2, "0");
 
-        // update digital display
-        digitalClock.textContent = `${hours}:${minutes}`;
+        // update mini digital display
+        digitalDisplay.textContent = `${hours}:${minutes}`;
 
         // update analog clock
         const hour12 = now.getHours() % 12 || 12;

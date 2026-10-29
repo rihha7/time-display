@@ -3,12 +3,10 @@
     const params = new URLSearchParams(window.location.search);
 
     if (params.get("clock") === "digital") {
-
       // timezone city
       const timeZone = document.getElementById("timezone");
       const intlTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       timeZone.textContent = intlTimeZone.match(/\/(.*)/)[1].toLowerCase();
-
       
       // switch between hour formats
       const btn24h = document.getElementById("24h-btn");
@@ -44,7 +42,7 @@
       const secondSegment = document.getElementById("second-segment");
 
       const setDefaultWidths = () => {
-        /* default hover target width */
+        // default hover target width
         [hourSegment, minuteSegment, secondSegment].forEach(segment => {
           const hoverTarget = segment.querySelector("div.hover-target");
           const timeSegment = segment.querySelector("h1").textContent;
@@ -71,8 +69,7 @@
       setDefaultWidths();
 
 
-      // digital clock logic + update hover target widths
-      // time period
+      // digital clock logic + update hover target widths + time period
       const timePeriod = document.getElementById("time-period");
 
       const hoursDisplay = hourSegment.querySelector("h1");
@@ -91,7 +88,6 @@
         else if (hours < 12) timePeriod.textContent = "AM";
         else if (hours == 12 && minutes == 0) timePeriod.textContent = "noon";
         else timePeriod.textContent = "PM";
-
 
         if (hourFormat === "12h") hours = hours % 12 || 12;
 
