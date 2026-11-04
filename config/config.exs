@@ -19,7 +19,7 @@ config :time_display, TimeDisplayWeb.Endpoint,
     layout: false
   ],
   pubsub_server: TimeDisplay.PubSub,
-  live_view: [signing_salt: "p8gPGZbX"]
+  live_view: [signing_salt: System.fetch_env!("LIVE_VIEW_SIGNING_SALT")]
 
 # Configure LiveView
 config :phoenix_live_view,
@@ -31,9 +31,6 @@ config :phoenix_live_view,
 # By default it uses the "Local" adapter which stores the emails
 # locally. You can see the emails in your browser, at "/dev/mailbox".
 #
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
-config :time_display, TimeDisplay.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,

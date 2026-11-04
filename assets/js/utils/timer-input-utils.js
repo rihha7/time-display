@@ -70,26 +70,35 @@ export const validateInput = () => {
 
       e.currentTarget.value = input.replace(/[^0-9]/g, "");
 
-      if (input.length > 1 && (+input > 59 || +input < 0)) e.currentTarget.value = ""; // checks if valid
-      if (input.length > 1 && input.startsWith("0")) e.currentTarget.value = input[1]; // checks if leading zero
+      if (input.length > 1 && (+input > 59 || +input < 0)) e.currentTarget.value = ""; // valid input?
+      if (input.length > 1 && input.startsWith("0")) e.currentTarget.value = input[1]; // leading zero?
 
       if (minutes.value == 0 && e.currentTarget.id === "seconds" && input == 0) {
-        minutes.value = "", e.currentTarget.value = ""; // if minutes = 0 and seconds = 0
+        minutes.value = "", e.currentTarget.value = ""; // if minutes == 0 and seconds == 0, reset
         minutes.focus();
       }
     });
   });
 
   submitBtn.addEventListener("click", () => {
-    if (minutes.value && seconds.value) handleTimer();
-  }); // just not empty strings
+    if (minutes.value && seconds.value) handleTimer(); // disallow empty strings
+  });
 
   seconds.addEventListener("keydown", e => {
     if (e.key === 'Enter' && minutes.value && seconds.value) handleTimer();
-    if (e.key === 'ArrowLeft' && e.currentTarget.value && e.currentTarget.selectionStart === 0) minutes.focus(); // as long as its not empty
+    if (e.key === 'ArrowLeft' && e.currentTarget.selectionStart === 0) {
+      minutes.focus();
+      requestAnimationFrame(() => {
+        minutes.setSelectionRange(minutes.value.length, minutes.value.length);
+      });
+    }
   });
 
   minutes.addEventListener("keydown", e => {
-    if (e.key === 'ArrowRight' && (val = e.currentTarget.value) && e.currentTarget.selectionStart === val.length) seconds.focus(); // as long as its not empty
+    const target = e.currentTarget;
+    if (e.key === 'ArrowRight' && target.selectionStart === target.value.length) {
+      seconds.focus();
+      requestAnimationFrame(() => seconds.setSelectionRange(0, 0));
+    }
   });
 };

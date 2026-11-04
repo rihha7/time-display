@@ -6,14 +6,14 @@ defmodule TimeDisplayWeb.AnalogComponents do
     <div class="border-amber-200 numbers rounded-full absolute inset-0 flex flex-col items-center justify-center ml-3">
       <%= for i <- 0..11 do %>
         <span style={"--i1: #{i}"} class={[
-          i == 12 && "pt-0.75 text-left mr-2.5",
-          i in [1, 3, 5] && "pl-0.5",
-          i == 4 && "pt-0.5",
-          i in [2, 6] && "pl-px",
-          i == 2 && "-mt-px",
-          i == [6, 7] && "pb-0.5",
-          i == 8 && "pt-1"
-        ]}><%= i == 0 && "12" || i %></span>
+          i == 12        and "pt-0.75 text-left mr-2.5",
+          i in [1, 3, 5] and "pl-0.5",
+          i == 4         and "pt-0.5",
+          i in [2, 6]    and "pl-px",
+          i == 2         and "-mt-px",
+          i == [6, 7]    and "pb-0.5",
+          i == 8         and "pt-1"
+        ]}><%= i == 0    and "12" || i %></span>
       <% end %>
     </div>
     """
@@ -23,7 +23,7 @@ defmodule TimeDisplayWeb.AnalogComponents do
     ~H"""
     <div class="graduations absolute inset-0 flex flex-col items-center justify-center rounded-full">
       <%= for i <- 0..59 do %>
-        <span style={"--i2: #{i}"} class={ rem(i, 5) == 0 && "stick" || "dot"}></span>
+        <span style={"--i2: #{i}"} class={ rem(i, 5) == 0 and "stick" || "dot"}></span>
       <% end %>
     </div>
     """
@@ -36,9 +36,9 @@ defmodule TimeDisplayWeb.AnalogComponents do
       <%= for hand <- ~w(hour-hand minute-hand second-hand) do %>
         <span id={hand} class={[
           "absolute w-0.75 rounded-full left-1/2 mb-[0.5px] bottom-1/2 origin-bottom",
-          hand == "hour-hand" && "h-20.5 bg-black/70 z-2",
-          hand == "minute-hand" && "h-25 bg-black -ml-[0.5px] z-1",
-          hand == "second-hand" && "w-[2px] h-25.5 bg-[#800000] z-3"
+          hand == "hour-hand"   and "h-20.5 bg-black/70 z-2",
+          hand == "minute-hand" and "h-25 bg-black -ml-[0.5px] z-1",
+          hand == "second-hand" and "w-[2px] h-25.5 bg-[#800000] z-3"
         ]}></span>
       <% end %>
     </div>

@@ -1,14 +1,15 @@
 import { timerBtn, toggleInput, timerComplete, minutes, seconds, tParent } from "./timer-input-utils";
+import { toString } from "./clock-display-utils";
 
 let sMode = null;
 let tMode = null;
 
-// stopwatch
+// stopwatch states
 let sIntervalID;
 let sHours = 0, sMinutes = 0, sSeconds = 0;
 const stopwatchHrLimit = 3;
 
-// timer
+// timer states
 let tIntervalID;
 let tMinutes = 0, tSeconds = 0;
 
@@ -91,11 +92,13 @@ export const startInterval = (timer, display, controls) => {
           endTimer(timer, tPause, tResume, timerBtn, display, controls);
 
           const now = new Date();
-          const localHour = String(now.getHours()).padStart(2, "0");
-          const localMinutes = String(now.getMinutes()).padStart(2, "0");
+          let localHour = now.getHours();
+          const localMinutes = now.getMinutes();
+
+          if (localStorage.getItem("clock-format") === "digital" && localStorage.getItem("hour-format") === "12h") localHour = localHour % 12 || 12;
 
           timerComplete.classList.remove("hidden");
-          timerComplete.querySelector("span#time-completed").textContent = `${localHour}:${localMinutes}`;
+          timerComplete.querySelector("span#time-completed").textContent = `${localHour}:${toString(localMinutes)}`;
         }, 300);
       } else {
         tSeconds--;

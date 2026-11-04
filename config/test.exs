@@ -4,14 +4,8 @@ import Config
 # you can enable the server option below.
 config :time_display, TimeDisplayWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "UeHrRhMVdmYqZXgv0z/K7jDMBJRVm6yMBUvH9VoXqkX99AqneH/lpLF6lQNtrr8O",
+  secret_key_base: System.fetch_env!("TEST_SECRET_KEY_BASE"),
   server: false
-
-# In test we don't send emails
-config :time_display, TimeDisplay.Mailer, adapter: Swoosh.Adapters.Test
-
-# Disable swoosh api client as it is only required for production adapters
-config :swoosh, :api_client, false
 
 # Print only warnings and errors during test
 config :logger, level: :warning

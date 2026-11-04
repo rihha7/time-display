@@ -6,8 +6,8 @@ defmodule TimeDisplayWeb.TimerComponents do
 
   def timer_btn(assigns) do
     ~H"""
-    <button id={ "#{@stopwatch && "stopwatch" || "timer" }-btn"} class="ml-auto block select-none cursor-pointer border-[1.5px] px-1.5 rounded-[3px] bg-white shadow-[2px_2px_0] mb-1 ease-hover duration-50
-      hover:border-indigo-950 hover:bg-indigo-950 hover:text-white hover:shadow-[1.5px_1.5px_0,1.7px_1.7px_0_0.7px_black]"><%= @stopwatch && "stopwatch" || "timer" %></button>
+    <button id={ "#{@stopwatch and "stopwatch" || "timer" }-btn"} class="ml-auto block px-1.5 bg-white shadow-[2px_2px_0] mb-1 ease-hover duration-50
+      hover:border-(--indigo-950) hover:bg-(--indigo-950) hover:text-white hover:shadow-[1.5px_1.5px_0,1.7px_1.7px_0_0.7px_black]"><%= @stopwatch and "stopwatch" || "timer" %></button>
     """
   end
 
@@ -25,31 +25,28 @@ defmodule TimeDisplayWeb.TimerComponents do
   end
 
 
-
   attr :stopwatch, :boolean, default: false
 
   def timer_display(assigns) do
     ~H"""
-    <div id="display" class={["hidden font-bold text-center tracking-widest rounded-full pt-[0.5px bg-indigo-950/15"]}><%= if @stopwatch, do: "00:00:00", else: "00:00" %></div>
+    <div id="display" class={["hidden font-bold text-center tracking-widest rounded-full pt-[0.5px bg-(--indigo-950)/20"]}><%= if @stopwatch, do: "00:00:00", else: "00:00" %></div>
     """
   end
-
-
 
 
   attr :stopwatch, :boolean, default: false
 
   def timer_controls(assigns) do
     ~H"""
-    <div id="controls" class="hidden w-fit mx-auto select-none gap-x-1">
+    <div id="controls" class="hidden w-fit mx-auto gap-x-1">
       <%= for btn <- ~w(pause resume stop) do %>
-        <button id={btn} class={"block cursor-pointer bg-indigo-950/20 rounded-full hover:bg-indigo-950/70 hover:text-white ease-hover size-4 group #{btn == "resume" and "hidden"}"}>
+        <button id={btn} class={"block bg-(--indigo-950)/20 rounded-full hover:bg-(--indigo-950)/50 hover:text-white ease-hover size-4 group #{btn == "resume" and "hidden"}"}>
           <%= cond do %>
             <% btn == "pause" -> %> <.pause_icon />
             <% btn == "resume" -> %> <.resume_icon />
             <% btn == "stop" -> %> <.stop_icon />
           <% end %>
-        </button>
+      </button>
       <% end %>
     </div>
     """

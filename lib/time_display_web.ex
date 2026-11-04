@@ -17,7 +17,7 @@ defmodule TimeDisplayWeb do
   those modules here.
   """
 
-  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+  def static_paths, do: ~w(assets)
 
   def router do
     quote do
@@ -39,8 +39,6 @@ defmodule TimeDisplayWeb do
   def controller do
     quote do
       use Phoenix.Controller, formats: [:html, :json]
-
-      use Gettext, backend: TimeDisplayWeb.Gettext
 
       import Plug.Conn
 
@@ -80,7 +78,6 @@ defmodule TimeDisplayWeb do
   defp html_helpers do
     quote do
       # Translation
-      use Gettext, backend: TimeDisplayWeb.Gettext
 
       # HTML escaping functionality
       import Phoenix.HTML

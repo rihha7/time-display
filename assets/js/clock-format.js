@@ -3,7 +3,6 @@
     // Set default clock format to analog
     let clockFormat = localStorage.getItem("clock-format");
     clockFormat = clockFormat ?? "analog";
-
     localStorage.setItem("clock-format", clockFormat);
 
     const url = new URL(window.location.href);

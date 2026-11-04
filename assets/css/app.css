@@ -10,20 +10,19 @@
 @source "../../_build/dev/phoenix-colocated/time_display/*/";
 
 
+:root { --indigo-950: #1e1a4d; --beige: #F2E8D5; }
+
 @theme {
   --font-spline-mono: "Spline Sans Mono", monospace;
   --font-space-grotesk: "Space Grotesk", sans-serif;
-  --font-jetbrains-mono: "JetBrains Mono", monospace;
   --font-nova-mono: "Nova Mono", monospace;
 }
-
 
 div.numbers > span {
   transition-duration: 0;
   position: absolute; width: 1.6rem; margin-left: -2px;
   -webkit-text-stroke: 0.5px black;
   font-size: 1.5rem; line-height: 0.83rem;
-  /* border: 1px solid #000; */
   
   transform:
     rotate(calc(var(--i1) * 30deg))
@@ -32,15 +31,12 @@ div.numbers > span {
 }
 
 
-
-
 div.clock:hover > div.numbers > span { -webkit-text-stroke: 0.5px transparent; }
 div.clock:hover > div.graduations > span.dot { background-color: #FFFFFF70; }
 div.clock:hover > div.graduations > span.stick { background-color: #FFFFFFB0; }
 div.clock:hover > div.hands > span#second-hand { background-color: #FFFFFFF0; }
 div.clock:hover > div.hands > span#minute-hand { background-color: #FFFFFF70; }
 div.clock:hover > div.digital-display { opacity: 35%; }
-
 
 
 div.graduations > span.dot {
@@ -61,5 +57,17 @@ div.graduations > span.stick {
     translateY(-134px);
 }
 
-.ease-hover { transition: color 300ms ease, background-color 300ms ease, box-shadow 150ms ease; }
+.ease-hover { transition: color 100ms ease, background-color 250ms ease, box-shadow 150ms ease; }
 
+button, a {
+  user-select: none; cursor: pointer; border-radius: 3px; border-width: 1.5px; border-style: solid; border-color: black;
+}
+
+button#stopwatch-btn, button#timer-btn { border-radius: 0; }
+button#submit-input { border-radius: 1rem; }
+div#controls > button, button#submit-input { border: none; }
+
+
+@media (max-height: 301.5px) {
+  section#digital-format { margin-left: -10px; }
+}
